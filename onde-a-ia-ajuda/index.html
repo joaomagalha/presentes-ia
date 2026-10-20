@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onde a IA ajuda · João Magalhães IA</title>
+  <meta name="description" content="Um texto pronto pra colar no Claude: ele te entrevista e mostra onde a IA pode te ajudar no seu trabalho e como.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=JetBrains+Mono:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <a class="voltar" href="../">← Todos os presentes</a>
+    <span class="kicker">Presente 01</span>
+    <h1>Descubra onde a IA pode te <em>ajudar</em></h1>
+    <p class="lead">O Claude te entrevista sobre o seu trabalho, mostra em quais tarefas ele ajuda, como ajuda, e te guia na primeira. Leva uns 15 minutos.</p>
+
+    <ol class="passos">
+      <li><span>Toque em <strong>Copiar o texto</strong>.</span></li>
+      <li><span>Abra o <a href="https://claude.ai/new" style="color:var(--laranja-txt)">claude.ai</a> e comece uma conversa nova. Pode ser a conta grátis. Se puder, ligue a busca na web no menu da conversa.</span></li>
+      <li><span>Cole, troque o que está entre colchetes pela sua profissão e envie.</span></li>
+    </ol>
+
+    <section class="cartao" aria-labelledby="t-prompt">
+      <div class="cartao-topo">
+        <span class="kicker" id="t-prompt">O texto</span>
+        <button class="btn" type="button" data-copiar>Copiar o texto</button>
+      </div>
+      <div class="prompt" id="prompt">Quero descobrir onde a IA pode me ajudar no meu trabalho e como ela faz isso na prática. Você vai me entrevistar e depois me entregar um mapa.
+
+Sobre mim: trabalho com [sua profissão ou tipo de negócio]. Não sou da área de tecnologia e não sei programar. Fale simples e traduza qualquer termo difícil na mesma frase.
+
+Sigilo: me lembre de nunca colar aqui nome, CPF, telefone, endereço ou dados de saúde de clientes ou pacientes. Se eu colar sem querer, me avise e siga usando só [nome] ou "Cliente A".
+
+Parte 1, a entrevista. Me faça uma pergunta por vez e espere eu responder, no máximo 8 perguntas. Quero que você descubra: como é um dia normal meu, de 3 a 5 tarefas que eu repito toda semana, quanto tempo cada uma toma e o que mais me cansa ou atrasa. Se eu não souber o tempo, aceite um chute e me dê opções (por exemplo: 1 hora, 3 horas ou 5 horas por semana).
+
+Parte 2, onde a IA pode ajudar. Monte uma tabela com: a tarefa, o tempo por semana, quanto a IA consegue assumir (tudo, em parte ou quase nada) e por quê, em frase curta. No fim, some o tempo total.
+
+Parte 3, como ela ajuda. Pra cada tarefa em que a IA assume tudo ou parte, me explique:
+1. o que ela faz por mim, com um exemplo do meu próprio trabalho;
+2. o que continua comigo (revisar, decidir, enviar);
+3. um pedido pronto, que eu possa colar aqui agora pra testar, com [colchetes] no lugar de nomes e dados pessoais.
+Seja curto: no máximo 6 linhas por tarefa. Me mostre uma tarefa por mensagem e espere eu dizer "próxima".
+
+Parte 4, por onde começar. Escolha UMA tarefa, a que economiza mais tempo com menos esforço, e me guie a fazer ela agora, nesta conversa, passo a passo. No fim, me diga qual é a próxima tarefa que vale atacar.
+
+Regras: não invente informação e não prometa o que a IA não faz. Me avise quando algo depender de uma ferramenta que você não acessa (WhatsApp, agenda, e-mail, sistema de nota). Você não envia mensagem nem mexe em nada meu: quem envia sou eu. Seja direto.</div>
+    </section>
+
+    <button class="btn btn-grande" type="button" data-copiar>Copiar o texto</button>
+
+    <p class="aviso"><strong>Cuidado com dado sensível:</strong> não cole nome, CPF, telefone nem informação de cliente ou paciente. Pra testar, use exemplos inventados.</p>
+
+    <footer>
+      <span>Feito por João Magalhães</span>
+      <a href="https://www.instagram.com/joaomagalhaes.ia/">@joaomagalhaes.ia</a>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var texto = document.getElementById('prompt').innerText.trim();
+      function copiarFallback(t) {
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      document.querySelectorAll('[data-copiar]').forEach(function (btn) {
+        var rotulo = btn.textContent;
+        btn.addEventListener('click', function () {
+          var feito = function () {
+            document.querySelectorAll('[data-copiar]').forEach(function (b) { b.textContent = 'Copiado ✓'; b.classList.add('ok'); });
+            setTimeout(function () {
+              document.querySelectorAll('[data-copiar]').forEach(function (b) { b.textContent = rotulo; b.classList.remove('ok'); });
+            }, 2200);
+          };
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(texto).then(feito, function () { copiarFallback(texto); feito(); });
+          } else { copiarFallback(texto); feito(); }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

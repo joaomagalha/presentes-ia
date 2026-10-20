@@ -1,0 +1,131 @@
+/* Presentes IA · @joaomagalhaes.ia · tokens do DESIGN.md (30/09/2026) */
+:root {
+  --papel: #F7F4EE;
+  --papel-2: #EFE7DB;
+  --tinta: #151310;
+  --apoio: #5B544B;
+  --laranja: #E8551F;      /* só título grande */
+  --laranja-txt: #C2410C;  /* texto pequeno */
+  --borda: rgba(21, 19, 16, .14);
+  --raio: 22px;
+  --sombra: 0 10px 30px rgba(92, 60, 30, .10), 0 2px 6px rgba(92, 60, 30, .06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--papel);
+  color: var(--tinta);
+  font: 400 17px/1.6 "Figtree", system-ui, sans-serif;
+  min-height: 100vh;
+  /* grão leve de papel */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
+
+.kicker {
+  font: 600 13px/1 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--laranja-txt);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--laranja-txt); }
+
+h1 {
+  font: 300 clamp(36px, 8vw, 56px)/1.08 "Newsreader", Georgia, serif;
+  letter-spacing: -.01em;
+  margin: 16px 0 16px;
+}
+h1 em { font-style: italic; font-weight: 400; color: var(--laranja); }
+
+.lead { color: var(--apoio); font-size: 18px; max-width: 34em; }
+
+.passos { list-style: none; margin: 32px 0; display: grid; gap: 12px; counter-reset: p; }
+.passos li {
+  counter-increment: p;
+  display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start;
+}
+.passos li::before {
+  content: counter(p);
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--tinta); color: var(--papel);
+  font: 700 16px/1 "Figtree", sans-serif;
+}
+.passos li span { padding-top: 5px; }
+
+.cartao {
+  background: #FFFDF9;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+.cartao-topo {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 14px 16px 14px 20px;
+  border-bottom: 1px solid var(--borda);
+  background: var(--papel-2);
+}
+.cartao-topo .kicker { color: var(--apoio); }
+.cartao-topo .kicker::before { background: var(--apoio); }
+
+.prompt {
+  white-space: pre-wrap;
+  font: 400 16px/1.65 "Figtree", sans-serif;
+  padding: 20px;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  background: var(--laranja-txt); color: #fff;
+  font: 700 16px/1 "Figtree", sans-serif;
+  padding: 12px 18px; border-radius: 999px;
+  min-height: 44px;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { background: #A8380A; }
+.btn:active { transform: scale(.97); }
+.btn:focus-visible, a:focus-visible { outline: 3px solid var(--tinta); outline-offset: 3px; }
+.btn.ok { background: var(--tinta); }
+
+.btn-grande { display: block; width: 100%; margin-top: 16px; padding: 16px; font-size: 17px; }
+
+.aviso {
+  margin-top: 24px; padding: 16px 20px;
+  border-left: 3px solid var(--laranja-txt);
+  background: rgba(194, 65, 12, .06);
+  border-radius: 0 12px 12px 0;
+  color: var(--apoio); font-size: 15px;
+}
+.aviso strong { color: var(--tinta); }
+
+.lista { list-style: none; display: grid; gap: 16px; margin-top: 32px; }
+.lista a {
+  display: block; text-decoration: none; color: inherit;
+  padding: 24px; background: #FFFDF9;
+  border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra);
+  transition: transform .15s ease;
+}
+.lista a:hover { transform: translateY(-2px); }
+.lista h2 { font: 400 26px/1.2 "Newsreader", Georgia, serif; margin: 10px 0 6px; }
+.lista p { color: var(--apoio); font-size: 16px; }
+.lista .ir { margin-top: 14px; font-weight: 700; color: var(--laranja-txt); }
+
+.voltar { display: block; width: fit-content; margin-bottom: 28px; color: var(--apoio); text-decoration: none; font-size: 15px; }
+.voltar:hover { color: var(--tinta); }
+
+footer {
+  margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--borda);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font: 500 13px/1.4 "JetBrains Mono", monospace; color: var(--apoio);
+}
+footer a { color: var(--laranja-txt); text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
